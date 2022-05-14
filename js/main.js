@@ -31,11 +31,18 @@ var nbLettres = 0;
 //Variables pour le joueur
 var joueur;
 
+var _blesses;
+var blesse;
+
 var _mines;
 var mine;
 
 var _obus;
 var obusTirer;
+
+var _barbeles;
+var barbeles;
+var inBarbed = false;
 
 var hasShoot = false;
 var nRandomizeWait;
@@ -52,8 +59,12 @@ function preload() {
 }
 
 function create() {
-    _mines = this.physics.add.staticGroup()
+    _mines = this.physics.add.staticGroup();
     _obus = this.physics.add.group({
+        runChildUpdate: true,
+    });
+    _barbeles = this.physics.add.staticGroup();
+    _blesses = this.physics.add.group({
         runChildUpdate: true,
     });
 

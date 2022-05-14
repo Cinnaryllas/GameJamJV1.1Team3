@@ -6,11 +6,15 @@ class barbed extends Phaser.Physics.Arcade.Sprite {
         //PHYSICS
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.body.setAllowGravity(false);
-        this.setPushable(false);
 
         //VARIABLES GLOBALES
         this.scene = _scene;
 
+        this.body.allowGravity = false; 
+        this.scene.physics.add.overlap(this, joueur, this.ralentissement, null, this);       
+    }
+
+    ralentissement() {
+        inBarbed = true;
     }
 }

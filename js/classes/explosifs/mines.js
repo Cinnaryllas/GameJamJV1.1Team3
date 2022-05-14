@@ -20,7 +20,7 @@ class mines extends Phaser.Physics.Arcade.Sprite{
     }
 
     selfDestroy() {
-        this.setPosition(10000,10000);
+        this.destroy(true);
     }
 
     explode() {

@@ -18,7 +18,6 @@ class firstLevel extends Phaser.Scene {
 
         this.platforms = map.createLayer('platforms', tileset);
         //this.platforms.setCollisionByExclusion(-1, true);
-        this.alienDoor = map.getObjectLayer('alienDoor');
 
 
         this.colliders =  this.physics.add.group({
@@ -44,14 +43,6 @@ class firstLevel extends Phaser.Scene {
         // Création des barbelés
         this._barbeles = this.physics.add.staticGroup()
 
-        map.getObjectLayer('barbele').objects.forEach((barb) => {
-            let obj = this._barbeles.create(barb.x, barb.y, "barbele"); 
-            obj.setOrigin(0,0); 
-            obj.refreshBody();
-            obj.body.width = barb.width; 
-            obj.body.height = barb.height;
-        });
-
 
         // Création des mines
         map.getObjectLayer('mines').objects.forEach((min) => {
@@ -59,37 +50,42 @@ class firstLevel extends Phaser.Scene {
             mine.body.allowGravity = false;
             _mines.add(mine);
         });
-      
-        this._barbeles = this.physics.add.staticGroup({
-            classType: barbed,
-            runChildUpdate: true
-        });
 
         map.getObjectLayer('barbele').objects.forEach((barb) => {
-            let obj = this._barbeles.create(barb.x, barb.y, "barbele"); 
-            obj.setOrigin(0,0); 
-            obj.refreshBody();
-            obj.body.width = barb.width; 
-            obj.body.height = barb.height;
+            barbeles = new barbed(this, barb.x, barb.y+12, 'barbele');
+            _barbeles.add(barbeles)
         });
 
-        //Créations des zones d'entrée-sortie des barbelés
-        this._barbeleZone = this.physics.add.staticGroup({
-            classType: barbedZone,
-            runChildUpdate: true
-        });
-
-
-        this.physics.add.overl
+        blesse = new hurted(this, joueur.x + 64, joueur.y, 'player');
+        //blesse = new hurted(this, joueur.x + 1000, joueur.y-32, 'player');
+        _blesses.add(blesse);
 
         //On défini notre caméra comme caméra principale.
         this.cam = this.cameras.main;
         this.cam.setBounds(0, 0, map.widthInPixels*32, map.heightInPixels);
         this.cam.setBackgroundColor('rgba(255, 255, 255, 0.5)');
+
+        this.physics.add.overlap(joueur, _blesses, function(nurse,hurt) {
+            nurse.isOverlapping = true;
+            if (nurse.isOverlapping && nurse.isLifting) {
+                hurt.setPosition(joueur.x, joueur.y-32);
+            }
+        },null,this);
+        /*if (!this.physics.add.overlap(joueur, _blesses, function(nurse,hurt) {
+            nurse.isOverlapping = true;
+            if (nurse.isOverlapping && nurse.isLifting) {
+                hurt.setPosition(joueur.x, joueur.y-32);
+            }
+        },null,this)){
+            //joueur.isOverlapping = true;
+        }*/
     }
 
     update (NONE, delta)
     {
+
+        console.log(joueur.falling);
+
         joueur.move(cursors);
         joueur.crawl();
         joueur.climb();
@@ -103,15 +99,14 @@ class firstLevel extends Phaser.Scene {
 
             obusTirer = new obus(this, this.distX, -400, "mine");
             obusTirer.setVelocityX(-200);
+            _mines.children.each(child => {
+                this.physics.add.collider(child, obusTirer.explosionRadius, function(){
+                    child.destroy(true);
+                }, null, this);
+            })
             _obus.add(obusTirer);
             nRandomizeWait = Math.random () * 2.5 + 1.5;
         }
-
-        _mines.children.each(child => {
-            _obus.children.each(child2 => {
-            this.physics.add.overlap(child, child2.explosionRadius, child.selfDestroy, null, this)  
-            });
-        })
             
         if (hasShoot){
             nTimer += delta/1000;
@@ -120,6 +115,6 @@ class firstLevel extends Phaser.Scene {
                 nTimer = 0;
             }
         }
-        
+        //joueur.isOverlapping = false;        
     }
 }

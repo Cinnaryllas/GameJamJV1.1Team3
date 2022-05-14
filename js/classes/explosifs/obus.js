@@ -16,7 +16,7 @@ class obus extends Phaser.Physics.Arcade.Sprite{
 
         this.setVelocityX(-200);
 
-        this.explosionRadius = this.scene.physics.add.sprite(this.x, this.y, 'mine').setVisible(false).setOrigin(0.5,0.5).setSize(128,128);
+        this.explosionRadius = this.scene.physics.add.sprite(this.x, this.y, 'mine').setVisible(false).setOrigin(0.5,8).setSize(128,128);
         this.explosionRadius.body.allowGravity = false;
 
         this.scene.physics.add.collider(this, this.scene.colliders, this.destroySelf, null, this);
@@ -38,8 +38,9 @@ class obus extends Phaser.Physics.Arcade.Sprite{
 
     update(NONE, delta){
 
+        
+
         if(this.explosion) {
-            console.log(this.nTimerExplosion);
             this.nTimerExplosion += delta/1000;
             if (this.nTimerExplosion >= 0.25){
                 this.explosion = false;
@@ -48,5 +49,6 @@ class obus extends Phaser.Physics.Arcade.Sprite{
                 this.nTimerExplosion = 0;
             }
         }
+        else{ this.x -= 3;}
     }
 }

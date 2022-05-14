@@ -59,7 +59,28 @@ class firstLevel extends Phaser.Scene {
             mine.body.allowGravity = false;
             _mines.add(mine);
         });
+      
+        this._barbeles = this.physics.add.staticGroup({
+            classType: barbed,
+            runChildUpdate: true
+        });
 
+        map.getObjectLayer('barbele').objects.forEach((barb) => {
+            let obj = this._barbeles.create(barb.x, barb.y, "barbele"); 
+            obj.setOrigin(0,0); 
+            obj.refreshBody();
+            obj.body.width = barb.width; 
+            obj.body.height = barb.height;
+        });
+
+        //Créations des zones d'entrée-sortie des barbelés
+        this._barbeleZone = this.physics.add.staticGroup({
+            classType: barbedZone,
+            runChildUpdate: true
+        });
+
+
+        this.physics.add.overl
 
         //On défini notre caméra comme caméra principale.
         this.cam = this.cameras.main;
@@ -70,7 +91,10 @@ class firstLevel extends Phaser.Scene {
     update (NONE, delta)
     {
         joueur.move(cursors);
-        this.cam.startFollow(joueur);      
+        joueur.crawl();
+        joueur.climb();
+
+        this.cam.startFollow(joueur);
 
         if (hasShoot == false) {
             hasShoot = true;

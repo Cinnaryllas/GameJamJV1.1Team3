@@ -26,5 +26,25 @@ var game = new Phaser.Game(config);
 var cursors;
 var pointer;
 
+var nbLettres = 0;
+
 //Variables pour le joueur
 var joueur;
+
+function preload() {
+    this.load.image('tileset','../assets/proto sprites/spritesheet-proto.png');
+    this.load.tilemapTiledJSON('map','../assets/map/mapProto.json');
+    this.load.image('joueur','../assets/proto sprites/joueur.png');
+    this.load.image('mine','../assets/proto sprites/mine.png');
+    this.load.image('barbele','../assets/proto sprites/barbele.png');
+    this.load.image('barbZone','../assets/proto sprites/barbeleZone.png');
+}
+
+
+function create() {
+    game.scene.add('firstLevel', firstLevel, true);
+}
+
+function update() {
+
+}

@@ -26,5 +26,19 @@ var game = new Phaser.Game(config);
 var cursors;
 var pointer;
 
+var nbLettres = 0;
+
 //Variables pour le joueur
 var joueur;
+
+function preload() {
+
+}
+
+function create() {
+
+}
+
+function update() {
+
+}

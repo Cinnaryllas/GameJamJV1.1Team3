@@ -21,6 +21,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.DKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.FKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         this.Ctrl = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CONTROL);
+        this.spaceBar = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.scene.physics.add.collider(this,this.scene.colliders);
 
@@ -64,6 +65,9 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.setAccelerationX (0);
             }
         }
+        if(Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
+            this.setVelocityY(-500);
+        }
         if(Phaser.Input.Keyboard.JustDown(this.FKey)) {
             if (!this.isLifting) {
                 this.isLifting = true;
@@ -72,5 +76,9 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.isLifting = false;
             }
         }
+    }
+
+    death() {
+        this.scene.scene.restart();
     }
 }

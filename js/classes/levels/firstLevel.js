@@ -6,12 +6,11 @@ class firstLevel extends Phaser.Scene {
 
     preload ()
     {
-        
+
     }
 
     create ()
     {  
-
         this.cursors = this.input.keyboard.createCursorKeys();
 
         const map = this.make.tilemap({key:'map'});
@@ -42,7 +41,7 @@ class firstLevel extends Phaser.Scene {
         });
 
 
-        // Création des mines
+        // Création des barbelés
         this._barbeles = this.physics.add.staticGroup()
 
         map.getObjectLayer('barbele').objects.forEach((barb) => {
@@ -54,15 +53,11 @@ class firstLevel extends Phaser.Scene {
         });
 
 
-        // Création des barbelés
-        this._mines = this.physics.add.staticGroup()
-
-        map.getObjectLayer('mines').objects.forEach((mine) => {
-            let obj = this._mines.create(mine.x, mine.y, "mine"); 
-            obj.setOrigin(0,0); 
-            obj.refreshBody();
-            obj.body.width = mine.width; 
-            obj.body.height = mine.height;
+        // Création des mines
+        map.getObjectLayer('mines').objects.forEach((min) => {
+            mine = new mines(this, min.x, min.y+4, 'mine');
+            mine.body.allowGravity = false;
+            _mines.add(mine);
         });
 
 
@@ -70,13 +65,37 @@ class firstLevel extends Phaser.Scene {
         this.cam = this.cameras.main;
         this.cam.setBounds(0, 0, map.widthInPixels*32, map.heightInPixels);
         this.cam.setBackgroundColor('rgba(255, 255, 255, 0.5)');
-
-        
     }
 
-    update ()
+    update (NONE, delta)
     {
         joueur.move(cursors);
-        this.cam.startFollow(joueur);
+        this.cam.startFollow(joueur);      
+
+        if (hasShoot == false) {
+            hasShoot = true;
+            this.nRandomizeX = Math.floor(Math.random() * 1000) -500
+            this.distX = this.nRandomizeX+joueur.x
+
+            obusTirer = new obus(this, this.distX, -400, "mine");
+            obusTirer.setVelocityX(-200);
+            _obus.add(obusTirer);
+            nRandomizeWait = Math.random () * 2.5 + 1.5;
+        }
+
+        _mines.children.each(child => {
+            _obus.children.each(child2 => {
+            this.physics.add.overlap(child, child2.explosionRadius, child.selfDestroy, null, this)  
+            });
+        })
+            
+        if (hasShoot){
+            nTimer += delta/1000;
+            if (nTimer >= nRandomizeWait){
+                hasShoot = false;
+                nTimer = 0;
+            }
+        }
+        
     }
 }

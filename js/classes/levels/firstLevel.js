@@ -6,6 +6,7 @@ class firstLevel extends Phaser.Scene {
 
     preload ()
     {
+        
     }
 
     create ()

@@ -32,11 +32,15 @@ var nbLettres = 0;
 var joueur;
 
 function preload() {
-
+    this.load.image('tileset','../assets/proto sprites/spritesheet-proto.png');
+    this.load.tilemapTiledJSON('map','../assets/map/mapProto.json');
+    this.load.image('joueur','../assets/proto sprites/joueur.png');
+    this.load.image('mine','../assets/proto sprites/mine.png');
+    this.load.image('barbele','../assets/proto sprites/barbele.png');
 }
 
 function create() {
-
+    game.scene.add('firstLevel', firstLevel, true);
 }
 
 function update() {

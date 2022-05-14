@@ -165,5 +165,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.setAccelerationY(0);
             }
         }
+    death() {
+        this.scene.scene.restart();
     }
 }

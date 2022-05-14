@@ -31,17 +31,32 @@ var nbLettres = 0;
 //Variables pour le joueur
 var joueur;
 
+var _mines;
+var mine;
+
+var _obus;
+var obusTirer;
+
+var hasShoot = false;
+var nRandomizeWait;
+var nRandomizeX;
+var distX;
+var nTimer = 0;
+
 function preload() {
     this.load.image('tileset','../assets/proto sprites/spritesheet-proto.png');
     this.load.tilemapTiledJSON('map','../assets/map/mapProto.json');
     this.load.image('joueur','../assets/proto sprites/joueur.png');
     this.load.image('mine','../assets/proto sprites/mine.png');
     this.load.image('barbele','../assets/proto sprites/barbele.png');
-    this.load.image('barbZone','../assets/proto sprites/barbeleZone.png');
 }
 
-
 function create() {
+    _mines = this.physics.add.staticGroup()
+    _obus = this.physics.add.group({
+        runChildUpdate: true,
+    });
+
     game.scene.add('firstLevel', firstLevel, true);
 }
 

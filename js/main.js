@@ -31,15 +31,24 @@ var nbLettres = 0;
 //Variables pour le joueur
 var joueur;
 
+var _blesses;
+var blesse;
+var blessePorte;
+
 var _mines;
 var mine;
 
 var _obus;
 var obusTirer;
 
+var _barbeles;
+var barbeles;
+var inBarbed = false;
+
 var hasShoot = false;
 var nRandomizeWait;
 var nRandomizeX;
+var nTimerBeforeShooting = 60;
 var distX;
 var nTimer = 0;
 
@@ -52,13 +61,24 @@ function preload() {
 }
 
 function create() {
-    _mines = this.physics.add.staticGroup()
+    _mines = this.physics.add.staticGroup({
+        runChildUpdate: true,
+    });
     _obus = this.physics.add.group({
         runChildUpdate: true,
     });
+    _barbeles = this.physics.add.staticGroup();
+    _blesses = this.physics.add.group({
+        runChildUpdate: true,
+    });
 
-    game.scene.add('firstLevel', firstLevel, true);
+    game.scene.add('mainMenu', mainMenu, true);
+    game.scene.add('firstLevel', firstLevel, false);
+    game.scene.add('lvlSelect', lvlSelect, false);
+    game.scene.add('credits', credits, false);
+    //game.scene.add('tutorial', tutorial, false);
 }
 
 function update() {
+
 }

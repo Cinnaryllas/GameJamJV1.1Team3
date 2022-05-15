@@ -16,7 +16,7 @@ class obus extends Phaser.Physics.Arcade.Sprite{
 
         this.setVelocityX(-200);
 
-        this.explosionRadius = this.scene.physics.add.sprite(this.x, this.y, 'mine').setVisible(false).setOrigin(0.5,0.5).setSize(128,128);
+        this.explosionRadius = this.scene.physics.add.sprite(this.x, this.y, 'mine').setVisible(false).setOrigin(0.5,8).setSize(128,128);
         this.explosionRadius.body.allowGravity = false;
 
         this.scene.physics.add.collider(this, this.scene.colliders, this.destroySelf, null, this);
@@ -26,6 +26,18 @@ class obus extends Phaser.Physics.Arcade.Sprite{
     }
 
     destroySelf() {
+        //Déclaration des varibales DistX et Y.
+        var DistX;
+        var DistY;
+
+        //On calcul la distance entre le joueur et l'ennemi sur l'axe X.
+        DistX = joueur.x - this.x;
+        //On calcul la distance entre le joueur et l'ennemi sur l'axe Y.
+        DistY = joueur.y - this.y;
+
+        //On calcul la distance entre le joueur et l'ennemi.
+        var distance = Math.sqrt(Math.pow(DistX,2)+Math.pow(DistY,2));
+        this.scene.cam.shake(100,0.02*(distance*0.01))
         this.explosionRadius.setPosition(this.x, this.y);
         this.setVelocity(0);
         this.setVisible(false);
@@ -38,8 +50,9 @@ class obus extends Phaser.Physics.Arcade.Sprite{
 
     update(NONE, delta){
 
+        
+
         if(this.explosion) {
-            console.log(this.nTimerExplosion);
             this.nTimerExplosion += delta/1000;
             if (this.nTimerExplosion >= 0.25){
                 this.explosion = false;
@@ -48,5 +61,6 @@ class obus extends Phaser.Physics.Arcade.Sprite{
                 this.nTimerExplosion = 0;
             }
         }
+        else{ this.x -= 3;}
     }
 }

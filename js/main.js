@@ -68,6 +68,7 @@ function create() {
         runChildUpdate: true,
     });
 
+    game.scene.add('mainMenu', mainMenu, false);
     game.scene.add('firstLevel', firstLevel, true);
 }
 

@@ -64,6 +64,12 @@ class firstLevel extends Phaser.Scene {
         this.cam.setBounds(0, 0, map.widthInPixels*32, map.heightInPixels);
         this.cam.setBackgroundColor('rgba(255, 255, 255, 0.5)');
 
+        this.physics.add.overlap(joueur, _blesses, function(nurse,hurt) {
+            nurse.isOverlapping = true;
+            if (nurse.isOverlapping && nurse.isLifting) {
+                hurt.setPosition(joueur.x, joueur.y-32);
+            }
+        },null,this);
         this.physics.add.overlap(joueur, blesse, function() {
             joueur.isOverlapping = true;
             if (joueur.isOverlapping && joueur.isLifting) {
@@ -74,6 +80,9 @@ class firstLevel extends Phaser.Scene {
 
     update (NONE, delta)
     {
+
+        console.log(joueur.isLifting);
+
         joueur.move(cursors);
         joueur.crawl();
         joueur.climb();

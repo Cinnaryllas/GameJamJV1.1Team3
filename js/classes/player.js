@@ -19,6 +19,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.climbingLeft = false;
         this.climbingRight = false;
         this.isOverlapping = false;
+        this.falling = false;
+
 
         this.ZKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.QKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
@@ -27,6 +29,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.FKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         this.Ctrl = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
 
+        this.collider = this.scene.physics.add.collider(this,this.scene.colliders, function (){this.falling = false}, null, this);        
         this.collider = this.scene.physics.add.collider(this,this.scene.colliders);        
 
         //Permet de créer le sprite et d'ajouter la physique au joueur.
@@ -66,6 +69,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
         }
         else {
+            this.setMaxVelocity(100,300);
             if (this.scene.cursors.left.isDown || this.QKey.isDown)
             {
                 this.setAccelerationX(-this.nSpeed/2);
@@ -90,7 +94,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         }
         
         if(inBarbed) {
-            this.setMaxVelocity(50,300);
+            this.setMaxVelocity(20,300);
         }
 
         if (this.climbingLeft){
@@ -115,26 +119,39 @@ class player extends Phaser.Physics.Arcade.Sprite{
             this.setMaxVelocity(75,300);
             
         }
+        if (!inBarbed){
+            if(this.isOverlapping && Phaser.Input.Keyboard.JustDown(this.FKey)) {
 
-        if(this.isOverlapping && Phaser.Input.Keyboard.JustDown(this.FKey)) {
-            if (!this.isLifting) {
-                this.isLifting = true;
-            }
-            else {
-                this.isLifting = false;
+                if(this.isLifting) {
+                    this.isLifting = false;
+                    console.log("test");
+                }
+                else if (!this.body.blocked.left && !this.body.blocked.right){
+                    if (!this.isLifting) {
+                    this.isLifting = true;
+                    }
+                    
+                }
+                else if (this.isLifting )
+                
             }
         }
+        
 
         if ((this.ZKey.isDown || this.scene.cursors.up.isDown) && (this.body.touching.down)){
             this.setVelocityY (-300);
         }
 
         inBarbed = false;
+
+        if (this.body.touching.none && !this.body.wasTouching.none){
+            this.falling = true;
+        }
     }
 
 
     crawl(){
-        if (!this.climbingLeft && !this.climbingRight){
+        if (!this.climbingLeft && !this.climbingRight && !this.isLifting){
             if (Phaser.Input.Keyboard.JustDown(this.Ctrl)){
                 if (this.isCrawling){
                     this.isCrawling = false;

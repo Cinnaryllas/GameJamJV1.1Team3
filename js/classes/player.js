@@ -21,6 +21,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.isOverlapping = false;
         this.falling = false;
 
+
         this.ZKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.QKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.SKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -29,6 +30,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.Ctrl = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
 
         this.collider = this.scene.physics.add.collider(this,this.scene.colliders, function (){this.falling = false}, null, this);        
+        this.collider = this.scene.physics.add.collider(this,this.scene.colliders);        
 
         //Permet de créer le sprite et d'ajouter la physique au joueur.
         _scene.add.existing(this);
@@ -141,7 +143,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
         }
 
         inBarbed = false;
-
 
         if (this.body.touching.none && !this.body.wasTouching.none){
             this.falling = true;

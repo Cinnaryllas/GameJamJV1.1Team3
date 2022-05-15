@@ -16,8 +16,6 @@ class hurted extends Phaser.Physics.Arcade.Sprite{
         _scene.physics.add.existing(this);
 
         this. collider = this.scene.physics.add.collider(this,this.scene.colliders);
-        
-        this.setSize(96,32);
     }
 
     update() {

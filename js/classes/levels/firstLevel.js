@@ -57,7 +57,6 @@ class firstLevel extends Phaser.Scene {
         });
 
         blesse = new hurted(this, joueur.x + 64, joueur.y, 'player');
-        //blesse = new hurted(this, joueur.x + 1000, joueur.y-32, 'player');
         _blesses.add(blesse);
 
         //On défini notre caméra comme caméra principale.
@@ -71,6 +70,12 @@ class firstLevel extends Phaser.Scene {
                 hurt.setPosition(joueur.x, joueur.y-32);
             }
         },null,this);
+        this.physics.add.overlap(joueur, blesse, function() {
+            joueur.isOverlapping = true;
+            if (joueur.isOverlapping && joueur.isLifting) {
+                blesse.setPosition(joueur.x, joueur.y-32);
+            }
+        })
     }
 
     update (NONE, delta)

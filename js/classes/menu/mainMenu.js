@@ -5,8 +5,7 @@ class mainMenu extends Phaser.Scene {
     }
 
     preload ()
-    {
-        this.load.image("playBtn","assets/images/playButton.png");
+    {        this.load.image("playBtn","assets/images/playButton.png");
         this.load.image("creditsBtn","assets/images/controlButton.png");
     }
 
@@ -37,5 +36,11 @@ class mainMenu extends Phaser.Scene {
     credits()
     {
         this.scene.start("credits");
+   
+    }
+
+    update (NONE, delta)
+    {
+        
     }
 }

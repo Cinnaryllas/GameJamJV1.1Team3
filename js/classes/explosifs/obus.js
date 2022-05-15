@@ -18,7 +18,7 @@ class obus extends Phaser.Physics.Arcade.Sprite{
 
         this.explosionRadius = this.scene.physics.add.sprite(this.x, this.y, 'joueur').setVisible(false).setOrigin(2,2).setCircle(64);
         this.explosionRadius.body.allowGravity = false;
-        this.explosionRadiusSprite = this.scene.physics.add.sprite(this.x, this.y, 'joueur').setVisible(true).setOrigin(0.5,0.5).setScale(3,3).setAlpha(0.5);
+        this.explosionRadiusSprite = this.scene.physics.add.sprite(this.x, this.y, 'radiusExplo').setVisible(true).setOrigin(0.5,0.5).setScale(4,4).setAlpha(0.5);
         this.explosionRadiusSprite.body.allowGravity = false;
 
         this.scene.physics.add.collider(this, this.scene.colliders, this.destroySelf, null, this);
@@ -39,7 +39,7 @@ class obus extends Phaser.Physics.Arcade.Sprite{
 
         //On calcul la distance entre le joueur et l'ennemi.
         var distance = Math.sqrt(Math.pow(DistX,2)+Math.pow(DistY,2));
-        this.scene.cam.shake(100,0.5/(distance*0.09))
+        this.scene.cam.shake(100,0.5/(distance*0.2), false)
         this.explosionRadius.setPosition(this.x, this.y);
         this.explosionRadiusSprite.setPosition(this.x, this.y);
         this.setVelocity(0);

@@ -45,6 +45,9 @@ var _barbeles;
 var barbeles;
 var inBarbed = false;
 
+var safeZone;
+var _groupZone;
+
 var hasShoot = false;
 var nRandomizeWait;
 var nRandomizeX;
@@ -58,6 +61,7 @@ function preload() {
     this.load.image('joueur','../assets/proto sprites/joueur.png');
     this.load.image('mine','../assets/proto sprites/mine.png');
     this.load.image('barbele','../assets/proto sprites/barbele.png');
+    this.load.image('radiusExplo','assets/images/RadiusExplo.png');
 }
 
 function create() {
@@ -69,6 +73,10 @@ function create() {
     });
     _barbeles = this.physics.add.staticGroup();
     _blesses = this.physics.add.group({
+        runChildUpdate: true,
+    });
+
+    _groupZone = this.physics.add.group({
         runChildUpdate: true,
     });
 

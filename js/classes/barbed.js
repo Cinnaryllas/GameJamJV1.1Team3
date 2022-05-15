@@ -16,6 +16,7 @@ class barbed extends Phaser.Physics.Arcade.Sprite {
 
     ralentissement() {
         inBarbed = true;
+        this.scene.cam.shake(500,0.0003, false)
         if (joueur.isLifting){
             joueur.isLifting = false;
         }

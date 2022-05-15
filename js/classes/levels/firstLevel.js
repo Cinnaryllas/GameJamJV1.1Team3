@@ -62,6 +62,9 @@ class firstLevel extends Phaser.Scene {
         //blesse = new hurted(this, joueur.x + 1000, joueur.y-32, 'player');
         _blesses.add(blesse);
 
+        safeZone = new zone(this,0,1024/1.4, 'player');
+        _groupZone.add(safeZone);
+
         //On défini notre caméra comme caméra principale.
         this.cam = this.cameras.main;
         this.cam.setBounds(0, 0, map.widthInPixels*32, map.heightInPixels);
@@ -96,7 +99,6 @@ class firstLevel extends Phaser.Scene {
 
 
         nTimerBeforeShooting += delta/1000;
-        console.log(nTimerBeforeShooting)
         if(nTimerBeforeShooting > 60) {
             if (hasShoot == false) {
                 hasShoot = true;
@@ -138,8 +140,6 @@ class firstLevel extends Phaser.Scene {
                     nTimer = 0;
                 }
             }
-            console.log(joueur.isOverlapping,joueur.isLifting);
-
             joueur.isOverlapping = false;
         }
 

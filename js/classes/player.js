@@ -172,9 +172,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         }
         if (!inBarbed){
             
-            if(this.isOverlapping && Phaser.Input.Keyboard.JustDown(this.FKey)) {
-                console.log('oui')
-                
+            if(this.isOverlapping && Phaser.Input.Keyboard.JustDown(this.FKey)) {                
                 if (!this.body.blocked.left && !this.body.blocked.right){
                     if (!this.isLifting) {
                         this.isLifting = true;
@@ -200,7 +198,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
         if (this.body.touching.none && !this.body.wasTouching.none){
             this.falling = true;
-            console.log('oui')
         }
 
         if(this.scene.cursors.right.isDown || this.DKey.isDown) {

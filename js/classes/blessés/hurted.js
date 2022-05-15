@@ -21,18 +21,11 @@ class hurted extends Phaser.Physics.Arcade.Sprite{
     }
 
     update() {
-        if(joueur.isOverlapping && joueur.isLifting) {
-            if (!this.isBeingCarry){
-                this.isBeingCarry = true;
-
-            }
-            this.isBeingCarry = true;
+        if(joueur.isLifting) {
             this.body.enable = false;
             this.setPosition(joueur.x, joueur.y-32);
         }
-        else if (!joueur.isLifting && this.isBeingCarry){
-            this.isBeingCarry = false;
-
+        else if (!joueur.isLifting){
             this.body.enable = true;
             this.refreshBody();
         }

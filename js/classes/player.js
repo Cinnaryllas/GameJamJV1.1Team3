@@ -170,16 +170,11 @@ class player extends Phaser.Physics.Arcade.Sprite{
             
         }
         if (!inBarbed){
+            
             if(this.isOverlapping && Phaser.Input.Keyboard.JustDown(this.FKey)) {
-
-                if(this.isLifting) {
-                    this.isLifting = false;
-                    this.isOverlapping = false;
-                    blessePorte = null;
-                    //this.scene.
-                    console.log("test");
-                }
-                else if (!this.body.blocked.left && !this.body.blocked.right && this.isOverlapping){
+                console.log('oui')
+                
+                if (!this.body.blocked.left && !this.body.blocked.right){
                     if (!this.isLifting) {
                         this.isLifting = true;
 
@@ -188,6 +183,10 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 }
                 
             }
+            if (Phaser.Input.Keyboard.JustDown(this.FKey) && this.isLifting){
+                this.isLifting = false;
+            }
+            
         }
         
 

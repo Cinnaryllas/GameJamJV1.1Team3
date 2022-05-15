@@ -5,24 +5,25 @@ class mainMenu extends Phaser.Scene {
     }
 
     preload ()
-    {        this.load.image("playBtn","assets/images/playButton.png");
-        this.load.image("creditsBtn","assets/images/controlButton.png");
+    {
+        this.load.image("playBtn","../assets/images/playButton.png");
+        this.load.image("creditsBtn","../assets/images/creditsButton.png");
     }
 
     create ()
     {  
-        this.playButton = this.add.image(960, 540, "playBtn" );
+        this.playButton = this.add.image(960, 640, "playBtn" );
 
         this.playButton.setInteractive();
 
         this.playButton.on('pointerdown', () => this.lvlSelect() );
 
 
-        this.creditsButton = this.add.image(960, 540, "creditsBtn" );
+        this.creditsButton = this.add.image(960, 840, "creditsBtn" );
 
         this.creditsButton.setInteractive();
 
-        this.creditsButton.on('pointerdown', () => this.lvlSelect() );
+        this.creditsButton.on('pointerdown', () => this.credits() );
 
     }
 
@@ -36,11 +37,5 @@ class mainMenu extends Phaser.Scene {
     credits()
     {
         this.scene.start("credits");
-   
-    }
-
-    update (NONE, delta)
-    {
-        
     }
 }

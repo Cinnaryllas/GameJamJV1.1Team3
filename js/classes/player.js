@@ -21,7 +21,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.isOverlapping = false;
         this.falling = false;
 
-
         this.ZKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.QKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.SKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -30,7 +29,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.Ctrl = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
 
         this.collider = this.scene.physics.add.collider(this,this.scene.colliders, function (){this.falling = false}, null, this);        
-        this.collider = this.scene.physics.add.collider(this,this.scene.colliders);        
 
         //Permet de créer le sprite et d'ajouter la physique au joueur.
         _scene.add.existing(this);
@@ -68,7 +66,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
             }
 
         }
-        else {
+        else if (this.isLifting && !this.isCrawling){
             this.setMaxVelocity(100,300);
             if (this.scene.cursors.left.isDown || this.QKey.isDown)
             {
@@ -92,7 +90,59 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.setAccelerationX (0);
             }
         }
-        
+        else if (!this.isLifting && this.isCrawling){
+            this.setMaxVelocity(100,300);
+            if (this.scene.cursors.left.isDown || this.QKey.isDown)
+            {
+                this.setAccelerationX(-this.nSpeed/2);
+            }
+            //Si la touche "flèche droite" est appuyée, on met la véloctiéX du joueur à +la vitesse du joueur. (+ pour aller à droite.)
+            else if (this.scene.cursors.right.isDown || this.DKey.isDown)
+            {
+                this.setAccelerationX(this.nSpeed/2);
+            }
+            else if ((this.scene.cursors.left.isUp || this.QKey.isUp) && (this.scene.cursors.right.isUp || this.DKey.isUp)) {
+                if (this.body.velocity.x < -0.10) {
+                    this.setAccelerationX(this.nSpeed/2*1.5);
+                }
+                else if (this.body.velocity.x > 0.10){
+                    this.setAccelerationX(-this.nSpeed/2*1.5);
+                } 
+            }
+            else
+            {
+                this.setAccelerationX (0);
+            }
+        }
+        else if (this.isLifting && this.isCrawling){
+            this.setMaxVelocity(100,300);
+            if (this.scene.cursors.left.isDown || this.QKey.isDown)
+            {
+                this.setAccelerationX(-this.nSpeed/3);
+            }
+            //Si la touche "flèche droite" est appuyée, on met la véloctiéX du joueur à +la vitesse du joueur. (+ pour aller à droite.)
+            else if (this.scene.cursors.right.isDown || this.DKey.isDown)
+            {
+                this.setAccelerationX(this.nSpeed/3);
+            }
+            else if ((this.scene.cursors.left.isUp || this.QKey.isUp) && (this.scene.cursors.right.isUp || this.DKey.isUp)) {
+                if (this.body.velocity.x < -0.10) {
+                    this.setAccelerationX(this.nSpeed/2*1.5);
+                }
+                else if (this.body.velocity.x > 0.10){
+                    this.setAccelerationX(-this.nSpeed/2*1.5);
+                } 
+            }
+            else
+            {
+                this.setAccelerationX (0);
+            }
+        }
+/*
+        if (this.falling){
+            this.isCrawling = false;
+        }
+*/
         if(inBarbed) {
             this.setMaxVelocity(20,300);
         }
@@ -124,15 +174,18 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
                 if(this.isLifting) {
                     this.isLifting = false;
+                    this.isOverlapping = false;
+                    blessePorte = null;
+                    //this.scene.
                     console.log("test");
                 }
-                else if (!this.body.blocked.left && !this.body.blocked.right){
+                else if (!this.body.blocked.left && !this.body.blocked.right && this.isOverlapping){
                     if (!this.isLifting) {
-                    this.isLifting = true;
+                        this.isLifting = true;
+
                     }
                     
                 }
-                else if (this.isLifting )
                 
             }
         }
@@ -144,8 +197,10 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
         inBarbed = false;
 
+
         if (this.body.touching.none && !this.body.wasTouching.none){
             this.falling = true;
+            console.log('oui')
         }
     }
 
@@ -155,7 +210,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
             if (Phaser.Input.Keyboard.JustDown(this.Ctrl)){
                 if (this.isCrawling){
                     this.isCrawling = false;
-                    this.setPosition(this.x,this.y-8);
+                    this.setPosition(this.x,this.y-10);
                 }
                 else {
                     this.isCrawling = true;
@@ -168,7 +223,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
 
     climb(){
-        if (!this.isCrawling){
+        if (!this.isCrawling && !this.isLifting){
             if(this.body.blocked.left) { 
                 this.climbingLeft = true; 
                 this.setMaxVelocity(50);

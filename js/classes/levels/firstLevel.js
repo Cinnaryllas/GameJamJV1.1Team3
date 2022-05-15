@@ -11,6 +11,7 @@ class firstLevel extends Phaser.Scene {
 
     create ()
     {  
+        this.EKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.cursors = this.input.keyboard.createCursorKeys();
 
         const map = this.make.tilemap({key:'map'});
@@ -57,6 +58,7 @@ class firstLevel extends Phaser.Scene {
         });
 
         blesse = new hurted(this, joueur.x + 64, joueur.y, 'player');
+        //blesse = new hurted(this, joueur.x + 1000, joueur.y-32, 'player');
         _blesses.add(blesse);
 
         //On défini notre caméra comme caméra principale.
@@ -70,19 +72,21 @@ class firstLevel extends Phaser.Scene {
                 hurt.setPosition(joueur.x, joueur.y-32);
             }
         },null,this);
-        this.physics.add.overlap(joueur, blesse, function() {
-            joueur.isOverlapping = true;
-            if (joueur.isOverlapping && joueur.isLifting) {
-                blesse.setPosition(joueur.x, joueur.y-32);
+        /*if (!this.physics.add.overlap(joueur, _blesses, function(nurse,hurt) {
+            nurse.isOverlapping = true;
+            if (nurse.isOverlapping && nurse.isLifting) {
+                hurt.setPosition(joueur.x, joueur.y-32);
             }
-        })
+        },null,this)){
+            //joueur.isOverlapping = true;
+        }*/
     }
 
     update (NONE, delta)
     {
 
-        console.log(joueur.isLifting);
-
+        //console.log(this.defuseZone.overlaping);
+        
         joueur.move(cursors);
         joueur.crawl();
         joueur.climb();
@@ -111,6 +115,7 @@ class firstLevel extends Phaser.Scene {
                 hasShoot = false;
                 nTimer = 0;
             }
-        }        
+        }
+        //joueur.isOverlapping = false;        
     }
 }

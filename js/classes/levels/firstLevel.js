@@ -11,7 +11,7 @@ class firstLevel extends Phaser.Scene {
 
     create ()
     {  
-        nTimerBeforeShooting = 240;
+        nTimerBeforeShooting = 300;
         this.EKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.cursors = this.input.keyboard.createCursorKeys();
 

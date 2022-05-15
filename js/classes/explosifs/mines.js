@@ -52,7 +52,7 @@ class mines extends Phaser.Physics.Arcade.Sprite{
     }
 
     update(){
-        if (this.defuseZone.overlaping && this.scene.EKey.isDown && joueur.body.touching.down && !joueur.isLifting){
+        if (this.defuseZone.overlaping && joueur.FKey.isDown && joueur.body.touching.down && !joueur.isLifting){
             console.log("oui");
             this.defuseZone.destroy();
             this.selfDestroy();            

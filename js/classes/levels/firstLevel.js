@@ -16,7 +16,7 @@ class firstLevel extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         const map = this.make.tilemap({key:'map'});
-        const tileset = map.addTilesetImage('tsProto','tileset');
+        const tileset = map.addTilesetImage('fond','tileset');
 
         this.platforms = map.createLayer('platforms', tileset);
         //this.platforms.setCollisionByExclusion(-1, true);

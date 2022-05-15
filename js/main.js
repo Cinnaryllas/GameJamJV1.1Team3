@@ -56,8 +56,8 @@ var distX;
 var nTimer = 0;
 
 function preload() {
-    this.load.image('tileset','../assets/proto sprites/spritesheet-proto.png');
-    this.load.tilemapTiledJSON('map','../assets/map/mapProto.json');
+    this.load.image('tileset','assets/images/mur.png');
+    this.load.tilemapTiledJSON('map','assets/map/no_mans_land.json');
     this.load.image('joueur','../assets/proto sprites/joueur.png');
     this.load.image('mine','../assets/proto sprites/mine.png');
     this.load.image('barbele','../assets/proto sprites/barbele.png');

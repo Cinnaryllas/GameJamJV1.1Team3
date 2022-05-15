@@ -35,6 +35,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         _scene.add.existing(this);
         _scene.physics.add.existing(this);
 
+        this.setScale(4,4)
     }
 
     //Fcontion move qui permet au joueur de se déplacer.

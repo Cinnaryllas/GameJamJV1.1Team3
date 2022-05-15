@@ -19,7 +19,7 @@ class zone extends Phaser.Physics.Arcade.Sprite{
 
         this. collider = this.scene.physics.add.collider(this,this.scene.colliders);
 
-        this.setSize(128,128)
+        this.setSize(128*4,128*4)
         this.body.setAllowGravity(false);
         this.body.moves = false;
     }

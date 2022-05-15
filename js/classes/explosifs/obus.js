@@ -38,8 +38,6 @@ class obus extends Phaser.Physics.Arcade.Sprite{
 
     update(NONE, delta){
 
-        
-
         if(this.explosion) {
             this.nTimerExplosion += delta/1000;
             if (this.nTimerExplosion >= 0.25){
@@ -49,6 +47,5 @@ class obus extends Phaser.Physics.Arcade.Sprite{
                 this.nTimerExplosion = 0;
             }
         }
-        else{ this.x -= 3;}
     }
 }

@@ -71,20 +71,12 @@ class firstLevel extends Phaser.Scene {
                 hurt.setPosition(joueur.x, joueur.y-32);
             }
         },null,this);
-        /*if (!this.physics.add.overlap(joueur, _blesses, function(nurse,hurt) {
-            nurse.isOverlapping = true;
-            if (nurse.isOverlapping && nurse.isLifting) {
-                hurt.setPosition(joueur.x, joueur.y-32);
-            }
-        },null,this)){
-            //joueur.isOverlapping = true;
-        }*/
     }
 
     update (NONE, delta)
     {
 
-        console.log(joueur.falling);
+        console.log(joueur.isLifting);
 
         joueur.move(cursors);
         joueur.crawl();
@@ -114,7 +106,6 @@ class firstLevel extends Phaser.Scene {
                 hasShoot = false;
                 nTimer = 0;
             }
-        }
-        //joueur.isOverlapping = false;        
+        }        
     }
 }

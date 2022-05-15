@@ -17,23 +17,18 @@ class hurted extends Phaser.Physics.Arcade.Sprite{
 
         this. collider = this.scene.physics.add.collider(this,this.scene.colliders);
         
-        this.setSize(32,32);
+        this.setSize(96,32);
     }
 
     update() {
         if(joueur.isOverlapping && joueur.isLifting) {
             this.isBeingCarry = true;
             this.body.enable = false;
-            this.setVisible(false);
-            //this.setPosition(joueur.x, joueur.y-32);
+            this.setPosition(joueur.x, joueur.y-32);
         }
         else if (!joueur.isLifting){
             this.body.enable = true;
-            this.setVisible(true);
             this.refreshBody();
-        }
-        if (this.isBeingCarry){
-            this.body.x = joueur.x;
         }
     }
 }

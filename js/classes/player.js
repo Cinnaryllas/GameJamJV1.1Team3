@@ -90,11 +90,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.setAccelerationX (0);
             }
         }
-
-        if (this.falling){
-            this.isCrawling = false;
-        }
-
+        
         if(inBarbed) {
             this.setMaxVelocity(20,300);
         }
@@ -126,17 +122,15 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
                 if(this.isLifting) {
                     this.isLifting = false;
-                    this.isOverlapping = false;
-                    this.scene.
                     console.log("test");
                 }
-                else if (!this.body.blocked.left && !this.body.blocked.right && this.isOverlapping){
+                else if (!this.body.blocked.left && !this.body.blocked.right){
                     if (!this.isLifting) {
-                        this.isLifting = true;
-
+                    this.isLifting = true;
                     }
                     
                 }
+                else if (this.isLifting )
                 
             }
         }
@@ -149,10 +143,9 @@ class player extends Phaser.Physics.Arcade.Sprite{
         inBarbed = false;
 
 
-        /*if (this.body.touching.none && !this.body.wasTouching.none){
+        if (this.body.touching.none && !this.body.wasTouching.none){
             this.falling = true;
-            console.log('oui')
-        }*/
+        }
     }
 
 
@@ -161,7 +154,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
             if (Phaser.Input.Keyboard.JustDown(this.Ctrl)){
                 if (this.isCrawling){
                     this.isCrawling = false;
-                    this.setPosition(this.x,this.y-10);
+                    this.setPosition(this.x,this.y-8);
                 }
                 else {
                     this.isCrawling = true;
@@ -174,7 +167,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
 
     climb(){
-        if (!this.isCrawling && !this.isLifting){
+        if (!this.isCrawling){
             if(this.body.blocked.left) { 
                 this.climbingLeft = true; 
                 this.setMaxVelocity(50);

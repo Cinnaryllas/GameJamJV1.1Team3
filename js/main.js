@@ -33,7 +33,6 @@ var joueur;
 
 var _blesses;
 var blesse;
-var blessePorte;
 
 var _mines;
 var mine;
@@ -69,11 +68,8 @@ function create() {
         runChildUpdate: true,
     });
 
-    game.scene.add('mainMenu', mainMenu, true);
-    game.scene.add('firstLevel', firstLevel, false);
-    game.scene.add('lvlSelect', lvlSelect, false);
-    game.scene.add('credits', credits, false);
-    //game.scene.add('tutorial', tutorial, false);
+    game.scene.add('mainMenu', mainMenu, false);
+    game.scene.add('firstLevel', firstLevel, true);
 }
 
 function update() {
